@@ -1,4 +1,4 @@
-dmodule Api
+module Api
   module V1
     class CocktailsController < ApplicationController
       def index
