@@ -1,6 +1,8 @@
 class Cocktail < ApplicationRecord
   has_many :proportions
   has_many :ingredients, through: :proportions
+  has_many :saved_drinks
+  
   accepts_nested_attributes_for :proportions
 
   def self.new_from_book(recipe)
