@@ -1,4 +1,4 @@
-module Api
+dmodule Api
   module V1
     class CocktailsController < ApplicationController
       def index
@@ -16,7 +16,8 @@ module Api
           source: cocktail.source,
           proportions: cocktail.proportions.map do |prop|
             {
-              id: prop.id,
+              prop_id: prop.id,
+              ingredient_id: prop.ingredient.id,
               ingredient_name: prop.ingredient.name,
               amount: prop.amount
             }
