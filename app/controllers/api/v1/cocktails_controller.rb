@@ -40,13 +40,18 @@ module Api
             }
           end
         }
-
         render json: cocktail_json
       end
 
       def create
-        cocktail = Cocktail.new(params[:name], params[:description], params[:instructions], params[:source], params[:proportions])
+        cocktail = Cocktail.new(cocktail_params)
+        # proportions = []
         byebug
+        params[:proportions].each do |prop|
+          ingredient = Ingredient.find_or_create_by_name(name: prop.name)
+          cocktail.proportions.build(ingredient_id: ingredient.id, cocktail_id: cocktail.id, amount: prop.amount)
+        end
+
         if cocktail.save
           render json: cocktail
         else
@@ -73,32 +78,40 @@ module Api
         render json: { messsage: "Succesfully Deleted" }
       end
 
+      private
+      def cocktail_params
+        params.permit(:name, :description, :instructions, :source)
+      end
+
+      def proportions_params
+        params.permit(:proportions)
+      end
     end
   end
 end
 
 # Howard's pseudocode for a create method in cocktails controller
 # here's our object from params
-params = {
-  cocktail_name: "Whiskey and water",
-  description: "the old classic",
-  instructions: "do this and that",
-   proportions: [
-    {
-      ingredient: "whiskey",
-      amount: "three fingers"
-    },
-    {
-      ingredient: "water",
-      amount: "four ounces"
-    }
-  ]
-}
+# params = {
+#   cocktail_name: "Whiskey and water",
+#   description: "the old classic",
+#   instructions: "do this and that",
+#    proportions: [
+#     {
+#       ingredient: "whiskey",
+#       amount: "three fingers"
+#     },
+#     {
+#       ingredient: "water",
+#       amount: "four ounces"
+#     }
+#   ]
+# }
 
-cocktail = Cocktail.create(cocktail_name, desc, instr)
-propportions = []
-params[proportions].each |prop| do
-  ingredient = Ingredient.find_or_create_by_name(prop.ingredient)
-  cocktail.proportions.build(ingredient_id: ingredient.id, cocktail_id: cocktail.id, amount: prop.amount)
-end
-if cocktail.save
+# cocktail = Cocktail.create(cocktail_name, desc, instr)
+# propportions = []
+# params[proportions].each |prop| do
+#   ingredient = Ingredient.find_or_create_by_name(prop.ingredient)
+#   cocktail.proportions.build(ingredient_id: ingredient.id, cocktail_id: cocktail.id, amount: prop.amount)
+# end
+# if cocktail.save
