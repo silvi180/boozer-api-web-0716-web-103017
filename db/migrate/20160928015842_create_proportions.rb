@@ -4,8 +4,6 @@ class CreateProportions < ActiveRecord::Migration[5.0]
       t.string :amount
       t.references :cocktail, foreign_key: true
       t.references :ingredient, foreign_key: true
-
-      t.timestamps
     end
   end
 end

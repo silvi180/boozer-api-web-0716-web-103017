@@ -8,8 +8,6 @@ class CreateSavedDrinks < ActiveRecord::Migration[5.0]
       t.string :instruction
       t.string :ingredients
       t.string :source
-
-      t.timestamps
     end
   end
 end

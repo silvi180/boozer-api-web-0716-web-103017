@@ -5,8 +5,6 @@ class CreateCocktails < ActiveRecord::Migration[5.0]
       t.string :description
       t.string :instructions
       t.string :source
-
-      t.timestamps
     end
   end
 end

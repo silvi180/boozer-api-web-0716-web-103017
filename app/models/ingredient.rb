@@ -1,7 +1,8 @@
 class Ingredient < ApplicationRecord
   has_many :proportions
   has_many :cocktails, through: :proportions
-
+  
+  accepts_nested_attributes_for :proportions
   def self.new_from_list(cocktail, ingredients)
     ingredients.each do |ingredient|
       amount, name = ingredient.scan(/^(.*? (?:oz.|dashes|dash|barspoon|Slices|tsp.)?) ?((?:Mint)?.*?(?:Leaves|Cube|Egg)?)$/).flatten

@@ -24,21 +24,32 @@ module Api
         render json: ingredient_json
       end
 
-      # def create
-      #   byebug
-      # end
+      def create
+        ingredient = Ingredient.new(:ingredient)
 
-      def edit
-
+        if ingredient.save
+          render json: ingredient
+        else
+          render json: {errors: ingredient.errors.full_messages}, status: 422
+        end
       end
 
-      def update
 
+      def update
+        ingredient = Ingredient.find(params[:id])
+        ingredient.update(:ingredient)
+
+        if ingredient.save
+          render json: ingredient
+        else
+          render json: {errors: ingredient.errors.full_messages}, status: 422
+        end
       end
 
       def destroy
 
       end
+
     end
   end
 end
