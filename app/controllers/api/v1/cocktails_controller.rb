@@ -74,7 +74,7 @@ module Api
       private
 
       def cocktail_params
-        params.permit(:name, :description, :Instructions, :source)
+        params.permit(:name, :description, :instructions, :source, proportions: [])
       end
 
     end
