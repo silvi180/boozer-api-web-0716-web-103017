@@ -25,7 +25,7 @@ module Api
       end
 
       def create
-        ingredient = Ingredient.new(:ingredient)
+        ingredient = Ingredient.new(params[:ingredient])
 
         if ingredient.save
           render json: ingredient
@@ -37,7 +37,7 @@ module Api
 
       def update
         ingredient = Ingredient.find(params[:id])
-        ingredient.update(:ingredient)
+        ingredient.update(params[:ingredient])
 
         if ingredient.save
           render json: ingredient

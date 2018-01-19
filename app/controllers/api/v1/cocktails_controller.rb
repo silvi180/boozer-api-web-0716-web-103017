@@ -45,7 +45,7 @@ module Api
       end
 
       def create
-        cocktail = Cocktail.new(cocktail_params)
+        cocktail = Cocktail.new(params[:name], params[:description], params[:instructions], params[:source], params[:proportions])
         byebug
         if cocktail.save
           render json: cocktail
@@ -73,12 +73,32 @@ module Api
         render json: { messsage: "Succesfully Deleted" }
       end
 
-      private
-
-      def cocktail_params
-        params.permit(:name, :description, :instructions, :source, :ingredients)
-      end
-
     end
   end
 end
+
+# Howard's pseudocode for a create method in cocktails controller
+# here's our object from params
+params = {
+  cocktail_name: "Whiskey and water",
+  description: "the old classic",
+  instructions: "do this and that",
+   proportions: [
+    {
+      ingredient: "whiskey",
+      amount: "three fingers"
+    },
+    {
+      ingredient: "water",
+      amount: "four ounces"
+    }
+  ]
+}
+
+cocktail = Cocktail.create(cocktail_name, desc, instr)
+propportions = []
+params[proportions].each |prop| do
+  ingredient = Ingredient.find_or_create_by_name(prop.ingredient)
+  cocktail.proportions.build(ingredient_id: ingredient.id, cocktail_id: cocktail.id, amount: prop.amount)
+end
+if cocktail.save
