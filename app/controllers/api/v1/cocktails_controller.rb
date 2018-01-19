@@ -46,7 +46,7 @@ module Api
 
       def create
         cocktail = Cocktail.new(cocktail_params)
-
+        byebug
         if cocktail.save
           render json: cocktail
         else
@@ -68,13 +68,15 @@ module Api
       end
 
       def destroy
-
+        cocktail = Cocktail.find(params[:id])
+        cocktail.destroy
+        render json: { messsage: "Succesfully Deleted" }
       end
 
       private
 
       def cocktail_params
-        params.permit(:name, :description, :instructions, :source, proportions: [])
+        params.permit(:name, :description, :instructions, :source, :ingredients)
       end
 
     end

@@ -47,7 +47,9 @@ module Api
       end
 
       def destroy
-
+        ingredient = Ingredient.find(params[:id])
+        ingredient.destroy
+        render json: { messsage: "Succesfully Deleted" }
       end
 
     end
