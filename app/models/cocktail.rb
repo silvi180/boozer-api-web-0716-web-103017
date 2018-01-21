@@ -1,4 +1,7 @@
 class Cocktail < ApplicationRecord
+  # include ActiveModel::MassAssignmentSecurity
+  # attr_accessor :proportions
+  # attr_accessible :proportions
   has_many :proportions
   has_many :ingredients, through: :proportions
   has_many :saved_drinks
