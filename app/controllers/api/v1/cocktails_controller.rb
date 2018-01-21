@@ -53,9 +53,10 @@ module Api
         # hey dan, the params for the proportions must be an ARRAY of objects/hashes so it can be iterated in line 55-59.
         if cocktail.save
           ingredients.each do |ing|
-            byebug
-            ingredient = Ingredient.find_or_create_by_name(name: ing['ingredient_name'])
-            cocktail.proportions.build(ingredient_id: ing.id, cocktail_id: cocktail.id, amount: ing.amount)
+            ingredient = Ingredient.find_or_create_by(name: ing['ingredient_name'])
+            prop = cocktail.proportions.build(ingredient_id: ingredient.id, cocktail_id: cocktail.id, amount: ing[:amount])
+            prop.save
+            # byebug
           end
           render json: cocktail
         else
