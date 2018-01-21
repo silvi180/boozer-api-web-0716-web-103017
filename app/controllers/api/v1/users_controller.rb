@@ -19,9 +19,8 @@ module Api
               saved_drink_id: drink.id,
               saved_drink_name: drink.name,
               saved_drink_description: drink.description,
-              saved_drink_instruction: drink.instruction,
-              saved_drink_source: drink.source,
-              saved_drink_ingredients: drink.ingredients
+              saved_drink_instructions: drink.instructions,
+              saved_drink_source: drink.source
             }
           end
         }
@@ -30,7 +29,6 @@ module Api
 
       def create
         user = User.new(user_params)
-
         if user.save
           render json: user
         else
@@ -63,7 +61,7 @@ module Api
       private
 
       def user_params
-        params.permit(:firstname, :lastname, :email, :age, :bio)
+        params.permit(:firstname, :lastname, :username, :email, :password, :password_confirmation, :age, :bio)
       end
 
     end

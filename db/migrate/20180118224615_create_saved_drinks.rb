@@ -1,13 +1,12 @@
 class CreateSavedDrinks < ActiveRecord::Migration[5.0]
   def change
     create_table :saved_drinks do |t|
-      t.integer :cocktail_id
-      t.integer :user_id
       t.string :name
       t.string :description
-      t.string :instruction
-      t.string :ingredients
+      t.string :instructions
       t.string :source
+      t.references :cocktail, foreign_key: true
+      t.references :user, foreign_key: true
     end
   end
 end

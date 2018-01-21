@@ -6,7 +6,7 @@ class Cocktail < ApplicationRecord
   has_many :ingredients, through: :proportions
   has_many :saved_drinks
 
-  accepts_nested_attributes_for :proportions
+  # accepts_nested_attributes_for :proportions
 
   def self.new_from_book(recipe)
     troublesome = ["Jules Bergeron, Trader Vic’s Bartenders Guide, 1972","George Kappeler, Modern American Drinks, 1895"]

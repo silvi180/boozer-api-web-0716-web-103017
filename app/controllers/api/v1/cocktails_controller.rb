@@ -2,7 +2,7 @@
 module Api
   module V1
     class CocktailsController < ApplicationController
-      ActionController::Parameters.permit_all_parameters = true # Hey Dan, this is the code that allowed me to permit all the parameters
+      # ActionController::Parameters.permit_all_parameters = true
 
       def index
         cocktails = Cocktail.all.map do |cocktail|
@@ -23,6 +23,7 @@ module Api
           }
         end
         render json: cocktails
+
 
       end
 
@@ -50,7 +51,7 @@ module Api
       def create
         ingredients = params[:proportions]
         cocktail = Cocktail.new(name: params[:name], description: params[:description], instructions: params[:instructions], source: params[:source])
-        # hey dan, the params for the proportions must be an ARRAY of objects/hashes so it can be iterated in line 55-59.
+
         if cocktail.save
           ingredients.each do |ing|
             ingredient = Ingredient.find_or_create_by(name: ing['ingredient_name'])

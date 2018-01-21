@@ -35,23 +35,29 @@ ActiveRecord::Schema.define(version: 20180118224615) do
   end
 
   create_table "saved_drinks", force: :cascade do |t|
-    t.integer "cocktail_id"
-    t.integer "user_id"
     t.string  "name"
     t.string  "description"
-    t.string  "instruction"
-    t.string  "ingredients"
+    t.string  "instructions"
     t.string  "source"
+    t.integer "cocktail_id"
+    t.integer "user_id"
+    t.index ["cocktail_id"], name: "index_saved_drinks_on_cocktail_id", using: :btree
+    t.index ["user_id"], name: "index_saved_drinks_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
     t.string  "firstname"
     t.string  "lastname"
+    t.string  "username"
     t.string  "email"
+    t.string  "password_digest"
     t.integer "age"
     t.string  "bio"
+    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
   add_foreign_key "proportions", "cocktails"
   add_foreign_key "proportions", "ingredients"
+  add_foreign_key "saved_drinks", "cocktails"
+  add_foreign_key "saved_drinks", "users"
 end
