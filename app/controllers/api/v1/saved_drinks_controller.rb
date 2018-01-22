@@ -7,9 +7,16 @@ module Api
       end
 
       def create
+        ingredients = params[:proportions]
         savedDrink = SavedDrink.new(savedDrink_params)
-
+        byebug
         if savedDrink.save
+
+          ingredredients.each do |ing|
+            ingredient = Ingredient.find_or_create_by(name: ing['ingredient_name'])
+            proportions = savedDrink.proportions.build(ingredients)
+            proportions.save
+          end
           render json: savedDrink
         else
           render json: { errors: co.errors.full_messages }, status: 422
