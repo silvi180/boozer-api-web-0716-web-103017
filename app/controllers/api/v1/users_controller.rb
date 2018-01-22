@@ -20,7 +20,8 @@ module Api
               saved_drink_name: drink.name,
               saved_drink_description: drink.description,
               saved_drink_instructions: drink.instructions,
-              saved_drink_source: drink.source
+              saved_drink_source: drink.source,
+              saved_drink_cocktail_id: drink.cocktail_id
             }
           end
         }
