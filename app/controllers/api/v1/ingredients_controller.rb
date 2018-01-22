@@ -24,33 +24,33 @@ module Api
         render json: ingredient_json
       end
 
-      def create
-        ingredient = Ingredient.new(params[:ingredient])
+      # def create
+      #   ingredient = Ingredient.new(params[:ingredient])
+      #
+      #   if ingredient.save
+      #     render json: ingredient
+      #   else
+      #     render json: {errors: ingredient.errors.full_messages}, status: 422
+      #   end
+      # end
 
-        if ingredient.save
-          render json: ingredient
-        else
-          render json: {errors: ingredient.errors.full_messages}, status: 422
-        end
-      end
 
+      # def update
+      #   ingredient = Ingredient.find(params[:id])
+      #   ingredient.update(params[:ingredient])
+      #
+      #   if ingredient.save
+      #     render json: ingredient
+      #   else
+      #     render json: {errors: ingredient.errors.full_messages}, status: 422
+      #   end
+      # end
 
-      def update
-        ingredient = Ingredient.find(params[:id])
-        ingredient.update(params[:ingredient])
-
-        if ingredient.save
-          render json: ingredient
-        else
-          render json: {errors: ingredient.errors.full_messages}, status: 422
-        end
-      end
-
-      def destroy
-        ingredient = Ingredient.find(params[:id])
-        ingredient.destroy
-        render json: { messsage: "Succesfully Deleted" }
-      end
+      # def destroy
+      #   ingredient = Ingredient.find(params[:id])
+      #   ingredient.destroy
+      #   render json: { messsage: "Succesfully Deleted" }
+      # end
 
     end
   end
