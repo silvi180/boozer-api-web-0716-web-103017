@@ -1,3 +1,4 @@
+
 module Api
   module V1
     class UsersController < ApplicationController
@@ -17,12 +18,12 @@ module Api
           saved_drinks: user.saved_drinks.map do |drink|
             {
               user_drink_id: drink.id,
-              saved_drink_name: drink.name,
-              saved_drink_description: drink.description,
-              saved_drink_instructions: drink.instructions,
-              saved_drink_source: drink.source,
-              saved_drink_cocktail_id: drink.cocktail_id,
-              saved_drink_proportions: drink.proportions.map do |prop|
+              name: drink.name,
+              description: drink.description,
+              instructions: drink.instructions,
+              source: drink.source,
+              cocktail_id: drink.cocktail_id,
+              proportions: drink.proportions.map do |prop|
                 {
                   name: prop.ingredient.name,
                   amount: prop.amount

@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       resources :cocktails
       resources :users
       resources :saved_drinks
+      post '/auth', to: 'authorizations#create'
+      get '/current_user', to: 'authorizations#show'
     end
   end
 end
