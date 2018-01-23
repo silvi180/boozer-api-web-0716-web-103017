@@ -13,8 +13,9 @@ module Api
         if savedDrink.save
           ingredients.each do |ing|
             ingredient = Ingredient.find_or_create_by(name: ing['ingredient_name'])
-            proportions = savedDrink.adjusted_proportions.build(ingredients)
-            proportions.save
+
+            adj_prop = AdjustedProportion.create(saved_drink_id: savedDrink.id, ingredient_id: ingredient.id, amount: ing['amount'])
+
           end
           render json: savedDrink
         else
