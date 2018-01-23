@@ -35,8 +35,11 @@ module Api
         if savedDrink.save
           ingredients.map do |ing|
             ingredient = Ingredient.find_or_create_by(name: ing['ingredient_name'])
-            adj_prop = AdjustedProportion.create(amount: ing['amount'], saved_drink_id: savedDrink.id, ingredient_id: ingredient.id)
-            adj_prop.save
+            # amount: ing['amount'], saved_drink_id: savedDrink.id, ingredient_id: ingredient.id
+            adj_prop = AdjustedProportion.find_or_create_by(saved_drink_id: savedDrink.id, ingredient_id: ingredient.id)
+            adj_prop.update(amount: ing['amount'])
+            # savedDrink.adjusted_proportions.build(adj_prop)
+            # savedDrink.save
           end
 
           response = {
@@ -45,7 +48,7 @@ module Api
             description: savedDrink.description,
             instructions: savedDrink.instructions,
             source: savedDrink.source,
-            adjusted_proportions: savedDrink.adjusted_proportions.map do |prop|
+            proportions: savedDrink.adjusted_proportions.map do |prop|
               {
                 id: prop.id,
                 amount: prop.amount,
@@ -53,7 +56,7 @@ module Api
               }
             end
           }
-          
+
           render json: response
         else
           render json: { errors: savedDrink.errors.full_messages }, status: 422
