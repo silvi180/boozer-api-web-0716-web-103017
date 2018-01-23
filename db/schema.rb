@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118224615) do
+ActiveRecord::Schema.define(version: 20180123034126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "adjusted_proportions", force: :cascade do |t|
+    t.string  "amount"
+    t.integer "saved_drink_id"
+    t.integer "ingredient_id"
+    t.index ["ingredient_id"], name: "index_adjusted_proportions_on_ingredient_id", using: :btree
+    t.index ["saved_drink_id"], name: "index_adjusted_proportions_on_saved_drink_id", using: :btree
+  end
 
   create_table "cocktails", force: :cascade do |t|
     t.string "name"
@@ -56,6 +64,8 @@ ActiveRecord::Schema.define(version: 20180118224615) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  add_foreign_key "adjusted_proportions", "ingredients"
+  add_foreign_key "adjusted_proportions", "saved_drinks"
   add_foreign_key "proportions", "cocktails"
   add_foreign_key "proportions", "ingredients"
   add_foreign_key "saved_drinks", "cocktails"

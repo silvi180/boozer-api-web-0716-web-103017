@@ -27,6 +27,12 @@ module Api
                   name: prop.ingredient.name,
                   amount: prop.amount
                 }
+              end,
+              adjusted_proportions: drink.adjusted_proportions.map do |prop|
+                {
+                  name: prop.ingredient.name,
+                  amount: prop.amount
+                }
               end
             }
           end

@@ -9,12 +9,11 @@ module Api
       def create
         ingredients = params[:proportions]
         savedDrink = SavedDrink.new(savedDrink_params)
-        byebug
-        if savedDrink.save
 
+        if savedDrink.save
           ingredredients.each do |ing|
             ingredient = Ingredient.find_or_create_by(name: ing['ingredient_name'])
-            proportions = savedDrink.proportions.build(ingredients)
+            proportions = savedDrink.adjusted_proportions.build(ingredients)
             proportions.save
           end
           render json: savedDrink
@@ -26,9 +25,18 @@ module Api
 
       def update
         savedDrink = SavedDrink.find(params[:id])
+        ingredients = params[:proportions] # ing name and amount(quantity)
         savedDrink.update(savedDrink_params)
 
         if savedDrink.save
+          byebug
+
+          # savedDrink.adjusted_proportions.each do |ing|
+          #   AdjustedProportions.find(id: )
+          # end
+
+            # proportions = savedDrink.proportions.build(ingredients)
+            # proportions.save
           render json: savedDrink
         else
           render json: { errors: savedDrink.errors.full_messages }, status: 422

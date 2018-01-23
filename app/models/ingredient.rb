@@ -3,6 +3,7 @@ class Ingredient < ApplicationRecord
   has_many :cocktails, through: :proportions
   has_many :saved_drinks, through: :cocktails
   # allow user's to update ingredient for saved drink?
+  has_many :adjusted_proportions
   accepts_nested_attributes_for :proportions
 
   def self.new_from_list(cocktail, ingredients)
