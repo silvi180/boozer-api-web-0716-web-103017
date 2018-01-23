@@ -59,6 +59,8 @@ module Api
             prop.save
             # byebug
           end
+
+          
           render json: cocktail
         else
           render json: { errors: co.errors.full_messages }, status: 422
