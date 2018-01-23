@@ -11,6 +11,10 @@ module Api
         savedDrink = SavedDrink.new(savedDrink_params)
 
         if savedDrink.save
+          ingredients.each do |ing|
+            ingredient = Ingredient.find_or_create_by(name: ing['ingredient_name'])
+            proportions = savedDrink.adjusted_proportions.build(ingredients)
+            proportions.save
           render json: savedDrink
         else
           render json: { errors: co.errors.full_messages }, status: 422
