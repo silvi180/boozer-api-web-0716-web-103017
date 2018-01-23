@@ -24,13 +24,13 @@ module Api
               cocktail_id: drink.cocktail_id,
               proportions: drink.proportions.map do |prop|
                 {
-                  name: prop.ingredient.name,
+                  ingredient_name: prop.ingredient.name,
                   amount: prop.amount
                 }
               end,
               adjusted_proportions: drink.adjusted_proportions.map do |prop|
                 {
-                  name: prop.ingredient.name,
+                  ingredient_name: prop.ingredient.name,
                   amount: prop.amount
                 }
               end

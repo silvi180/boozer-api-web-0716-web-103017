@@ -29,7 +29,7 @@ module Api
         savedDrink.update(savedDrink_params)
 
         if savedDrink.save
-          byebug
+
 
           # savedDrink.adjusted_proportions.each do |ing|
           #   AdjustedProportions.find(id: )
