@@ -1,4 +1,3 @@
-require 'jwt'
 module Api
   module V1
     class AuthorizationsController < ApplicationController
@@ -6,7 +5,6 @@ module Api
       def create
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
-          byebug
           render json: {id: user.id, username: user.username, token: issue_token(user)}
         else
           render({json: {error: 'User is not valid'}, status: 401})
