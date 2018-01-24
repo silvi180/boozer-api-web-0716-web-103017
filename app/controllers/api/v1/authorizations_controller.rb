@@ -5,7 +5,7 @@ module Api
       def create
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
-          render json: {id: user.id, username: user.username, token: issue_token(user)}
+          render json: {id: user.id, username: user.username, user: user, token: issue_token(user)}
         else
           render({json: {error: 'User is not valid'}, status: 401})
         end
@@ -14,7 +14,7 @@ module Api
       def show
 
         if current_user
-          render json: {id: current_user.id, username: current_user.username, token: issue_token(the_current_user)}
+          render json: {id: current_user.id, username: current_user.username, token: issue_token(current_user)}
         else
           render({json: {error: 'Token is not valid'}, status: 401})
         end

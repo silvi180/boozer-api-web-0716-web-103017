@@ -60,8 +60,22 @@ module Api
             # byebug
           end
 
-          
-          render json: cocktail
+          cocktail_json = {
+            id: cocktail.id,
+            name: cocktail.name,
+            description: cocktail.description,
+            instructions: cocktail.instructions,
+            source: cocktail.source,
+            proportions: cocktail.proportions.map do |prop|
+              {
+                prop_id: prop.id,
+                ingredient_id: prop.ingredient.id,
+                ingredient_name: prop.ingredient.name,
+                amount: prop.amount
+              }
+            end
+          }
+          render json: cocktail_json
         else
           render json: { errors: co.errors.full_messages }, status: 422
         end
